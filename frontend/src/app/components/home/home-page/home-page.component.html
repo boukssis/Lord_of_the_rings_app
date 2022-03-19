@@ -1,0 +1,88 @@
+<section class="m-5">
+  <h1 class="f-w-600">Lord of the rings</h1>
+
+  <!-- Filter Section -->
+  <div class="row mb-5">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <app-select
+            [characters]="characters"
+            [label]="'Name'"
+            [keyType]="'name'"
+            (inputEmitter)="getName($event)"
+          ></app-select>
+        </div>
+
+        <div class="col-md-6 mb-2">
+          <app-select
+            [characters]="characters"
+            [label]="'Hair Color'"
+            [keyType]="'hair'"
+            (inputEmitter)="getHair($event)"
+          ></app-select>
+        </div>
+
+        <div class="col-md-6">
+          <app-select
+            [characters]="characters"
+            [label]="'Gender'"
+            [keyType]="'gender'"
+            (inputEmitter)="getGender($event)"
+          ></app-select>
+        </div>
+
+        <div class="col-md-6">
+          <app-select
+            [characters]="characters"
+            [label]="'Race'"
+            [keyType]="'race'"
+            (inputEmitter)="getRace($event)"
+          ></app-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-3 mb-2 pull-right">
+        <label class="col-form-label f-w-600">Reset Filter &nbsp; </label>
+        <button (click)="refresh()" class="btn btn-success">
+          <i
+            style="font-size: 15px"
+            class="fa fa-refresh fa-spin"
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Filter Section End-->
+
+  <!-- Results Section -->
+  <h4>Results:</h4>
+  <div class="row mt-4">
+    <div
+      *ngFor="
+        let character of characters | filter: { name: name, hair: hair, gender: gender, race: race }
+          | paginate: { itemsPerPage: 12, currentPage: p }"
+      class="col-md-3"
+    >
+      <app-character-detail [character]="character"></app-character-detail>
+    </div>
+
+    <!-- Pagination start  -->
+    <div class="text-center mt-3">
+      <pagination-controls
+        previousLabel="Previous"
+        nextLabel="Next"
+        (pageChange)="p = $event"
+      >
+      </pagination-controls>
+    </div>
+        <!-- Pagination end  -->
+
+  </div>
+
+  <!-- Results Section End-->
+</section>

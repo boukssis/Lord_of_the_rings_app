@@ -1,0 +1,14 @@
+<!-- select start -->
+<label class="col-form-label">{{ label }}</label>
+<select class="form-control" (change)="onChange()" [(ngModel)]="name">
+  <option value="" disabled selected="selected">
+    Please Select a {{ label }}
+  </option>
+  <option
+    *ngFor="let element of characters | cleaner: keyType"
+    value="{{ element[keyType] }}"
+  >
+    {{ element[keyType] }}
+  </option>
+</select>
+<!-- select end -->
